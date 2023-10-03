@@ -3,6 +3,7 @@ import { db } from "@/lib/db"
 import { initialProfile } from "@/lib/initial-profile";
 import { InitialModal } from "@/components/modals/initial-modal";
 import { NavigationSidebar } from "@/components/navigation/navigation-sidebar";
+import { InitialModalNickname } from "@/components/modals/initial-modal-nickname";
 
 const SetupPage = async () => {
     const profile = await initialProfile()
@@ -25,7 +26,8 @@ const SetupPage = async () => {
     //     return redirect("/servers");
     // }
 
-    return <InitialModal/>
+    return <InitialModalNickname/>
+    // return <InitialModal />
     // return <NavigationSidebar/>
 }
  

@@ -153,3 +153,11 @@ model DirectMessage {
   @@index([conversationId])
 }
 
+model AvatarIcon {
+  id String @id @default(uuid())
+  name String @unique
+  imageUrl String? @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
