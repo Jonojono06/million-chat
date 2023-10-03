@@ -62,6 +62,7 @@ export const InitialModalNickname = () => {
         try {
             await axios.patch("/api/profile", values);
             updateUser(values.name);
+            updateMetadata();
             form.reset();
 
             router.refresh();
@@ -84,6 +85,43 @@ export const InitialModalNickname = () => {
             console.error("Error updating user:", error);
             // Handle the error, e.g., show an error message to the user
         }
+    };
+
+    if (!user) return null;
+    const updateMetadata = async () => {
+        try {
+            const response = await fetch("/api/metadata", {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ userId: user.id, roleValue: "Free" }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log("Successfully updated metadata", data);
+                // Reload user to reflect updated metadata
+                user?.reload();
+                // onClose();
+                router.refresh();
+                // router.push("/");
+            } else {
+                user.reload();
+                const data = await response.json();
+                // onClose();
+                // router.refresh();
+                // router.push("/");
+                console.error("Error updating metadata:", data.message);
+            }
+        } catch (error) {
+            // onClose();
+            // router.refresh();
+            // // router.push("/");
+            // user.reload();
+            console.log(error);
+        }
+
     };
 
 

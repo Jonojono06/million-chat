@@ -6,9 +6,13 @@
     "dev": "next dev",
     "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "static": "next build && next export"
   },
   "dependencies": {
+    "@capacitor/android": "^5.4.1",
+    "@capacitor/cli": "^5.4.1",
+    "@capacitor/core": "^5.4.1",
     "@clerk/clerk-sdk-node": "^4.12.10",
     "@clerk/nextjs": "^4.24.0",
     "@emoji-mart/data": "^1.1.2",

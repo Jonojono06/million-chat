@@ -51,15 +51,29 @@ export const ChatInput = ({
 
     const isLoading = form.formState.isSubmitting;
 
-    const [remainingTime, setRemainingTime] = useState(() => {
+    // const [remainingTime, setRemainingTime] = useState(() => {
+    //     const lastMessageTime = localStorage.getItem('lastMessageTime');
+    //     if (lastMessageTime) {
+    //         const timeElapsed = Math.floor((Date.now() - Number(lastMessageTime)) / 1000);
+    //         const remaining = 60 - timeElapsed;
+    //         return remaining > 0 ? remaining : 0;
+    //     }
+    //     return 0;
+    // });
+
+    const [remainingTime, setRemainingTime] = useState<number>(0);
+
+    useEffect(() => {
+        // This ensures the code runs only on the client side
         const lastMessageTime = localStorage.getItem('lastMessageTime');
         if (lastMessageTime) {
             const timeElapsed = Math.floor((Date.now() - Number(lastMessageTime)) / 1000);
             const remaining = 60 - timeElapsed;
-            return remaining > 0 ? remaining : 0;
+            setRemainingTime(remaining > 0 ? remaining : 0);
+        } else {
+            setRemainingTime(0);
         }
-        return 0;
-    });
+    }, []);
 
     const onSubmit = async (values: z.infer<typeof formSchema> = form.getValues()) => {
         if (user?.publicMetadata.role === "Free" && type === "conversation") {
@@ -128,7 +142,13 @@ export const ChatInput = ({
                                 <div className="relative p-4 pb-6">
                                     <button
                                         type="button"
-                                        onClick={() => onOpen("messageFile", { apiUrl, query })}
+                                        onClick={() => {
+                                            if (user?.publicMetadata.role === "Free" && type === "conversation") {
+                                                onOpen("alertModal");
+                                            } else {
+                                                onOpen("messageFile", { apiUrl, query });
+                                            }
+                                        }}
                                         className="absolute top-7 left-8 h-[24px] w-[24px] bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center"
                                     >
                                         <Plus className="text-white dark:text-[#313338]" />
