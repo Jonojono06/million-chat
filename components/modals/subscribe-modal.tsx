@@ -52,7 +52,7 @@ export const SubscribeModal = () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ userId: user.id, roleValue: "Free" }),
+                body: JSON.stringify({ userId: user.id, roleValue: "Subscribed" }),
             });
 
             if (response.ok) {
