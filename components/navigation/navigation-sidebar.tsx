@@ -9,8 +9,6 @@ import {db} from "@/lib/db";
 
 import { NavigationAction } from "./navigation-action";
 import { NavigationItem } from "./navigation-item";
-import { Button } from "@/components/ui/button";
-import { useModal } from "@/hooks/use-modal-store";
 import { SubscribeAction } from "@/components/subscribe-action";
 
 export const NavigationSidebar = async () => {

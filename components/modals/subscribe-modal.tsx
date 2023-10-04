@@ -24,7 +24,6 @@ export const SubscribeModal = () => {
     const router = useRouter();
 
     const isModalOpen = isOpen && type === "subscribe";
-    const { server } = data;
     const [isLoading, setIsLoading] = useState(false);
 
     const onClick = async () => {
@@ -58,24 +57,15 @@ export const SubscribeModal = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log("Successfully updated metadata", data);
-                // Reload user to reflect updated metadata
                 user.reload();
                 onClose();
                 router.refresh();
-                // router.push("/");
             } else {
                 user.reload();
                 const data = await response.json();
-                // onClose();
-                // router.refresh();
-                // router.push("/");
                 console.error("Error updating metadata:", data.message);
             }
         } catch (error) {
-            // onClose();
-            // router.refresh();
-            // // router.push("/");
-            // user.reload();
             console.log(error);
         }
 

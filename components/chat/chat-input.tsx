@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useModal } from "@/hooks/use-modal-store";
-import { EmojiPicker } from "@/components/emoji-picker";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 
@@ -51,16 +50,6 @@ export const ChatInput = ({
 
     const isLoading = form.formState.isSubmitting;
 
-    // const [remainingTime, setRemainingTime] = useState(() => {
-    //     const lastMessageTime = localStorage.getItem('lastMessageTime');
-    //     if (lastMessageTime) {
-    //         const timeElapsed = Math.floor((Date.now() - Number(lastMessageTime)) / 1000);
-    //         const remaining = 60 - timeElapsed;
-    //         return remaining > 0 ? remaining : 0;
-    //     }
-    //     return 0;
-    // });
-
     const [remainingTime, setRemainingTime] = useState<number>(0);
 
     useEffect(() => {
@@ -81,8 +70,6 @@ export const ChatInput = ({
             return; 
         }
         if (user?.publicMetadata.role === "Free") {
-            // onOpen("alertModal");
-            // return; 
 
             if (remainingTime > 0) {
                 return;
