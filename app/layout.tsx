@@ -11,6 +11,7 @@ import { SocketProvider } from '@/components/providers/socket-provider'
 import { QueryProvider } from '@/components/providers/query-provider'
 import Head from 'next/head'
 import { useEffect } from 'react'
+import ClientWrapper from '@/components/client-wrapper'
 
 
 const font = Open_Sans({ subsets: ['latin'] })
@@ -53,30 +54,59 @@ export default function RootLayout({
     };
   }, []);
 
+  // return (
+  //   <ClerkProvider>
+  //   <html lang="en" suppressHydrationWarning>
+  //       <Head>
+  //         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  //         <meta name="apple-mobile-web-app-capable" content="yes"/>
+  //       </Head>
+  //     <body className={cn (
+  //       font.className, "bg-white dark:bg-[#313338]"
+  //       )}>
+  //       <ThemeProvider
+  //        attribute='class'
+  //        defaultTheme='dark'
+  //        enableSystem={false}
+  //        storageKey='million-theme'>
+  //         <SocketProvider>
+  //         <ModalProvider/>
+  //         <QueryProvider>
+  //               {children}
+  //         </QueryProvider>
+  //           </SocketProvider>
+  //         </ThemeProvider>
+  //       </body>
+  //   </html>
+  //   </ClerkProvider>
+  // )
+
   return (
     <ClerkProvider>
-    <html lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning>
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-          <meta name="apple-mobile-web-app-capable" content="yes"/>
+          <meta name="apple-mobile-web-app-capable" content="yes" />
         </Head>
-      <body className={cn (
-        font.className, "bg-white dark:bg-[#313338]"
+        <body className={cn(
+          font.className, "bg-white dark:bg-[#313338]"
         )}>
-        <ThemeProvider
-         attribute='class'
-         defaultTheme='dark'
-         enableSystem={false}
-         storageKey='million-theme'>
-          <SocketProvider>
-          <ModalProvider/>
-          <QueryProvider>
-                {children}
-          </QueryProvider>
-            </SocketProvider>
-          </ThemeProvider>
+          <ClientWrapper>
+            <ThemeProvider
+              attribute='class'
+              defaultTheme='dark'
+              enableSystem={false}
+              storageKey='million-theme'>
+              <SocketProvider>
+                <ModalProvider />
+                <QueryProvider>
+                  {children}
+                </QueryProvider>
+              </SocketProvider>
+            </ThemeProvider>
+          </ClientWrapper>
         </body>
-    </html>
+      </html>
     </ClerkProvider>
   )
 }
