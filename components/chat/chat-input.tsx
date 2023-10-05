@@ -5,7 +5,7 @@ import axios from "axios";
 import qs from "query-string";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LucideWatch, Plus, Send, SendIcon } from "lucide-react";
+import { LucideWatch, Plus, Send, SendHorizonal, SendIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -151,7 +151,7 @@ const ChatInput = ({
                                         }}
                                         className="absolute top-7 left-8 h-[24px] w-[24px] bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center"
                                     >
-                                        <Plus className="text-white dark:text-[#313338]" />
+                                        <Plus className="text-white dark:text-[#2E2B2B]" />
                                     </button>
                                     <Input
                                         {...field}
@@ -165,9 +165,9 @@ const ChatInput = ({
                                         <LucideWatch/>
                                     </div>
                                    ) : null}
-                                    <div className="absolute top-7 right-8 flex items-center">
+                                    <div className="absolute top-7 right-8 h-[24px] flex items-center">
                                         {remainingTime > 0 && (
-                                            <div className="mr-2">
+                                            <div className="mr-2text-zinc-500 dark:text-zinc-400">
                                                 {remainingTime}s
                                             </div>
                                         )}
@@ -175,11 +175,12 @@ const ChatInput = ({
                                             type="button"
                                             onClick={() => form.handleSubmit(onSubmit)()}
                                             disabled={isLoading || remainingTime > 0}
-                                            className="top-7 left-8 h-[30px] w-[30px]"
+                                            className="h-[30px] w-[30px] flex items-center justify-center"
                                         >
-                                            <Send />
+                                            <SendHorizonal className="h-7 w-8 hover:opacity-75 transition text-zinc-500 dark:text-zinc-400" />
                                         </button>
                                     </div>
+
                                 </div>
                             </FormControl>
                         </FormItem>
