@@ -3,6 +3,7 @@
 import * as React from "react"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
+import { useEffect } from 'react';
 
 import { Button } from "@/components/ui/button"
 import {
@@ -13,7 +14,24 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 export function ModeToggle() {
-    const { setTheme } = useTheme()
+    const { theme, setTheme } = useTheme()
+
+    useEffect(() => {
+        const metaTag = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+
+        switch (theme) {
+            case 'light':
+                metaTag?.setAttribute('content', 'default');
+                break;
+            case 'dark':
+                metaTag?.setAttribute('content', 'black-translucent');
+                break;
+            default:
+                // For system or other themes, you can decide what the default should be
+                metaTag?.setAttribute('content', 'default');
+                break;
+        }
+    }, [theme]);
 
     return (
         <DropdownMenu>
