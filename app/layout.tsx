@@ -12,6 +12,7 @@ import { QueryProvider } from '@/components/providers/query-provider'
 import Head from 'next/head'
 import ClientOnly from '@/components/client-only'
 import ClientSideEffects from '@/components/client-side-effects'
+import { useTheme } from 'next-themes'
 
 
 const font = Open_Sans({ subsets: ['latin'] })
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   icons: { apple: '/icon.png' },
   viewport: "width=device-width, initial-scale=1.0",
+  themeColor: '#fff'
 };
 
 export default function RootLayout({
@@ -30,20 +32,22 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const { theme } = useTheme();
 
+  // Deduce the theme color based on the current theme
+  const themeColor = theme === 'dark' ? '#313338' : '#fff';
   return (
     <ClerkProvider>
-    <html lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning>
         <Head>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-          <meta name="apple-mobile-web-app-capable" content="yes"/>
+          <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+          <meta name="theme-color" content={themeColor} />
         </Head>
-      <body className={cn (
-        font.className, "bg-white dark:bg-[#313338]"
+        <body className={cn(
+          font.className, "bg-white dark:bg-[#313338]"
         )}>
-          <ClientOnly> {/* Wrap the application components within ClientOnly */}
-          <ClientSideEffects/>
+          <ClientOnly>
             <ThemeProvider
               attribute='class'
               defaultTheme='dark'
@@ -58,7 +62,7 @@ export default function RootLayout({
             </ThemeProvider>
           </ClientOnly>
         </body>
-    </html>
+      </html>
     </ClerkProvider>
-  )
+  );
 }

@@ -1,22 +1,26 @@
 "use client";
-import type { Metadata } from 'next'
 import { useTheme } from 'next-themes';
-import { useEffect } from 'react';
-
-export const metadata: Metadata = {
-    themeColor: '#313338'
-};
+import { useEffect, useState } from 'react';
 
 export default function ClientSideEffects() {
     const { theme } = useTheme();
+    const [currentThemeColor, setCurrentThemeColor] = useState('#313338'); // initial value
 
     useEffect(() => {
         if (theme === 'dark') {
-            metadata.themeColor = '#313338'; // Dark mode color
+            setCurrentThemeColor('#313338'); // Dark mode color
         } else {
-            metadata.themeColor = '#fff'; // Light mode color
+            setCurrentThemeColor('#fff'); // Light mode color
         }
     }, [theme]);
+
+    // Dynamically set the meta tag for theme color
+    useEffect(() => {
+        const metaThemeColor = document.querySelector("meta[name=theme-color]");
+        if (metaThemeColor) {
+            metaThemeColor.setAttribute("content", currentThemeColor);
+        }
+    }, [currentThemeColor]);
 
     return null;
 }
