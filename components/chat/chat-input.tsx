@@ -31,7 +31,7 @@ const formSchema = z.object({
     content: z.string().min(1),
 });
 
-const ChatInput = ({
+export const ChatInput = ({
     apiUrl,
     query,
     name,
@@ -190,4 +190,3 @@ const ChatInput = ({
     )
 }
 
-export default ChatInput;
