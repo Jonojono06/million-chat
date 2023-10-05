@@ -7,11 +7,20 @@ interface ClientOnlyProps {
 }
 
 const ClientOnly: React.FC<ClientOnlyProps> = ({ children }) => {
-    useDisablePinchZoom();  // Add this line
+    useDisablePinchZoom();  
 
-    if (typeof window === "undefined") {
-        return null;
+    const [isClient, setIsClient] = React.useState(false);
+    React.useEffect(() => {
+        setIsClient(true);
+    }, []);
+
+    if (!isClient) {
+        return <div style={{ display: 'none' }}>{children}</div>;
     }
+
+    // if (typeof window === "undefined") {
+    //     return null;
+    // }
 
     return <>{children}</>;
 };
