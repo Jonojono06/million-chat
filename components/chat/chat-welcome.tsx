@@ -1,4 +1,3 @@
-import useDisablePinchZoom from "@/hooks/use-disable-zoom";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 import { Hash } from "lucide-react";
@@ -13,7 +12,6 @@ export const ChatWelcome = ({
     name,
     type
 }: ChatWelcomeProps) => {
-    useDisablePinchZoom();
     return(
         <div className="space-y-2 px-4 mb-4">
 {/* 

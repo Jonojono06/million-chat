@@ -5,7 +5,6 @@ import { UserAvatar } from "@/components/user-avatar";
 import { SocketIndicator } from "@/components/socket-indicator";
 
 import { ChatVideoButton } from "./chat-video-button";
-import useDisablePinchZoom from "@/hooks/use-disable-zoom";
 
 interface ChatHeaderProps {
     serverId: string;
@@ -20,7 +19,6 @@ const ChatHeader = ({
     type,
     imageUrl
 }: ChatHeaderProps) => {
-    useDisablePinchZoom();
     return (
         <div className="text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2">
             <MobileToggle serverId={serverId} />

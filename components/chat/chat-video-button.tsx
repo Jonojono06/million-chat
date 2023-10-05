@@ -6,7 +6,6 @@ import { Video, VideoOff } from "lucide-react";
 
 
 import { ActionTooltip } from "@/components/action-tooltip";
-import useDisablePinchZoom from "@/hooks/use-disable-zoom";
 
 export const ChatVideoButton = () => {
     const pathname = usePathname();
@@ -28,7 +27,7 @@ export const ChatVideoButton = () => {
 
     const Icon = isVideo ? VideoOff : Video;
     const tooltipLabel = isVideo ? "End video call" : "Start video call";
-    useDisablePinchZoom();
+
     return (
         <ActionTooltip side="bottom" label={tooltipLabel}>
             <button onClick={onClick} className="hover:opacity-75 transition mr-4">

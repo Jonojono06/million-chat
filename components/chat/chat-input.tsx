@@ -19,7 +19,6 @@ import { useModal } from "@/hooks/use-modal-store";
 import { EmojiPicker } from "@/components/emoji-picker";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
-import useDisablePinchZoom from "@/hooks/use-disable-zoom";
 
 interface ChatInputProps {
     apiUrl: string;
@@ -38,7 +37,6 @@ const ChatInput = ({
     name,
     type,
 }: ChatInputProps) => {
-    useDisablePinchZoom();
     const { onOpen } = useModal();
     const [open, setOpen] = useState(false);
     const router = useRouter();

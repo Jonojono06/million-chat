@@ -23,7 +23,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal-store";
-import useDisablePinchZoom from "@/hooks/use-disable-zoom";
 
 interface ChatItemProps {
     id: string;
@@ -62,7 +61,6 @@ export const ChatItem = ({
     socketUrl,
     socketQuery
 }: ChatItemProps) => {
-    useDisablePinchZoom();
     const [isEditing, setIsEditing] = useState(false);
     const { onOpen } = useModal();
     const params = useParams();
