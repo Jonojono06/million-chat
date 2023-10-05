@@ -9,7 +9,7 @@ body,
 }
 
 body {
-  touch-action: pan-y;
+  touch-action: pan-y !important;
 }
 
 input
