@@ -97,6 +97,10 @@ const withPWA = require ('next-pwa') ({
   skipWaiting: true,
 //   disable: process.env.NODE_ENV === 'development',
 });
+const withBundleAnalyzer = require ('@next/bundle-analyzer') ({
+  enabled: process.env.ANALYZE === 'true',
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     webpack: config => {
@@ -112,7 +116,8 @@ const nextConfig = {
   },
 };
 
-module.exports = withPWA (nextConfig);
+module.exports = withBundleAnalyzer (withPWA (nextConfig));
+
 
 
 

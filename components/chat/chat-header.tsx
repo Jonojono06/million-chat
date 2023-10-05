@@ -13,7 +13,7 @@ interface ChatHeaderProps {
     imageUrl?: string;
 }
 
-export const ChatHeader = ({
+const ChatHeader = ({
     serverId,
     name,
     type,
@@ -43,3 +43,5 @@ export const ChatHeader = ({
         </div>
     )
 }
+
+export default ChatHeader;

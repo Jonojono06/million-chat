@@ -12,7 +12,7 @@ interface MediaRoomProps {
     audio: boolean;
 };
 
-export const MediaRoom = ({
+const MediaRoom = ({
     chatId,
     video,
     audio
@@ -63,3 +63,5 @@ export const MediaRoom = ({
         </LiveKitRoom>
     )
 }
+
+export default MediaRoom;
