@@ -11,6 +11,7 @@ import { useChatScroll } from "@/hooks/use-chat-scroll";
 
 import { ChatWelcome } from "./chat-welcome";
 import { ChatItem } from "./chat-item";
+import useDisablePinchZoom from "@/hooks/use-disable-zoom";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
@@ -43,6 +44,7 @@ const ChatMessages = ({
     paramValue,
     type,
 }: ChatMessagesProps) => {
+    useDisablePinchZoom();
     const queryKey = `chat:${chatId}`;
     const addKey = `chat:${chatId}:messages`;
     const updateKey = `chat:${chatId}:messages:update`
@@ -92,6 +94,7 @@ const ChatMessages = ({
             </div>
         )
     }
+
 
     return (
         <div ref={chatRef} className="flex-1 flex flex-col py-4 overflow-y-auto">
