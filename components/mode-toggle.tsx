@@ -26,10 +26,6 @@ export function ModeToggle() {
             case 'dark':
                 metaTag?.setAttribute('content', 'black-translucent');
                 break;
-            default:
-                // For system or other themes, you can decide what the default should be
-                metaTag?.setAttribute('content', 'default');
-                break;
         }
     }, [theme]);
 
@@ -48,9 +44,6 @@ export function ModeToggle() {
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setTheme("dark")}>
                     Dark
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("system")}>
-                    System
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
