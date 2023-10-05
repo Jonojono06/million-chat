@@ -11,6 +11,13 @@ body,
 body {
   touch-action: pan-y;
 }
+
+input,
+select,
+textarea,
+button {
+  font-size: 16px;
+}
  
 @layer base {
   :root {
