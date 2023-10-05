@@ -10,6 +10,7 @@ import { ModalProvider } from '@/components/providers/modal-provider'
 import { SocketProvider } from '@/components/providers/socket-provider'
 import { QueryProvider } from '@/components/providers/query-provider'
 import Head from 'next/head'
+import ClientOnly from '@/components/client-only'
 
 
 const font = Open_Sans({ subsets: ['latin'] })
@@ -28,7 +29,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-
   return (
     <ClerkProvider>
     <html lang="en" suppressHydrationWarning>
@@ -39,18 +39,20 @@ export default function RootLayout({
       <body className={cn (
         font.className, "bg-white dark:bg-[#313338]"
         )}>
-        <ThemeProvider
-         attribute='class'
-         defaultTheme='dark'
-         enableSystem={false}
-         storageKey='million-theme'>
-          <SocketProvider>
-          <ModalProvider/>
-          <QueryProvider>
-                {children}
-          </QueryProvider>
-            </SocketProvider>
-          </ThemeProvider>
+          <ClientOnly> {/* Wrap the application components within ClientOnly */}
+            <ThemeProvider
+              attribute='class'
+              defaultTheme='dark'
+              enableSystem={false}
+              storageKey='million-theme'>
+              <SocketProvider>
+                <ModalProvider />
+                <QueryProvider>
+                  {children}
+                </QueryProvider>
+              </SocketProvider>
+            </ThemeProvider>
+          </ClientOnly>
         </body>
     </html>
     </ClerkProvider>
