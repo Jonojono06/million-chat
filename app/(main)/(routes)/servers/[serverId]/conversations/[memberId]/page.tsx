@@ -5,15 +5,15 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { getOrCreateConversation } from "@/lib/conversation";
 import { currentProfile } from "@/lib/current-profile";
-import { ChatHeader } from "@/components/chat/chat-header";
-import { ChatMessages } from "@/components/chat/chat-messages";
-import { ChatInput } from "@/components/chat/chat-input";
-import { MediaRoom } from "@/components/media-room";
+// import { ChatHeader } from "@/components/chat/chat-header";
+// import { ChatMessages } from "@/components/chat/chat-messages";
+// import { ChatInput } from "@/components/chat/chat-input";
+// import { MediaRoom } from "@/components/media-room";
 
-// const ChatHeader = dynamic(() => import('@/components/chat/chat-header').then(mod => mod.default));
-// const ChatInput = dynamic(() => import('@/components/chat/chat-input').then(mod => mod.default));
-// const ChatMessages = dynamic(() => import('@/components/chat/chat-messages').then(mod => mod.default));
-// const MediaRoom = dynamic(() => import('@/components/media-room').then(mod => mod.default));
+const ChatHeader = dynamic(() => import('@/components/chat/chat-header').then(mod => mod.default));
+const ChatInput = dynamic(() => import('@/components/chat/chat-input').then(mod => mod.default));
+const ChatMessages = dynamic(() => import('@/components/chat/chat-messages').then(mod => mod.default));
+const MediaRoom = dynamic(() => import('@/components/media-room').then(mod => mod.default));
 
 interface MemberIdPageProps {
     params: {

@@ -32,7 +32,7 @@ interface ChatMessagesProps {
     type: "channel" | "conversation";
 }
 
-export const ChatMessages = ({
+const ChatMessages = ({
     name,
     member,
     chatId,
@@ -142,3 +142,4 @@ export const ChatMessages = ({
     )
 }
 
+export default ChatMessages;
