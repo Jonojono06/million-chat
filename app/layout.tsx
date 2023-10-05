@@ -10,6 +10,7 @@ import { ModalProvider } from '@/components/providers/modal-provider'
 import { SocketProvider } from '@/components/providers/socket-provider'
 import { QueryProvider } from '@/components/providers/query-provider'
 import Head from 'next/head'
+import { useEffect } from 'react'
 
 
 const font = Open_Sans({ subsets: ['latin'] })
@@ -28,6 +29,29 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
+  useEffect(() => {
+    function handleTouchStart(event: TouchEvent) {
+      if (event.touches.length > 1) {
+        event.preventDefault();
+      }
+    }
+
+    function handleTouchMove(event: any) {
+      if (event.scale !== 1) {
+        event.preventDefault();
+      }
+    }
+
+    document.addEventListener('touchstart', handleTouchStart, { passive: false });
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    // Cleanup the event listeners on component unmount
+    return () => {
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, []);
 
   return (
     <ClerkProvider>
