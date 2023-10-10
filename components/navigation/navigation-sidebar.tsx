@@ -12,6 +12,7 @@ import { NavigationItem } from "./navigation-item";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal-store";
 import { SubscribeAction } from "@/components/subscribe-action";
+import dynamic from "next/dynamic";
 
 export const NavigationSidebar = async () => {
     const profile = await currentProfile();
@@ -29,6 +30,10 @@ export const NavigationSidebar = async () => {
             }
         }
     });
+
+    const Notifications = dynamic(() => import('@/components/notifications'), {
+        ssr: false, // Make sure to render component client side to access window and Notification APIs
+    })
     return (
         <div className="space-y-4 flex flex-col items-center h-full text-primary w-full dark:bg-[#211f1f] bg-[#E3E5E8] py-3">
             <NavigationAction/>
@@ -45,6 +50,7 @@ export const NavigationSidebar = async () => {
                 ))}
             </ScrollArea>
             <div className="pb-3 mt-auto flex items-center flex-col gap-y-4">
+                <Notifications/>   
                 <SubscribeAction/>
                 <ModeToggle/>
                 <UserButton
