@@ -16,15 +16,16 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useModal } from "@/hooks/use-modal-store";
-import { EmojiPicker } from "@/components/emoji-picker";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
+import { Member, Profile } from "@prisma/client";
 
 interface ChatInputProps {
     apiUrl: string;
     query: Record<string, any>;
     name: string;
     type: "conversation" | "channel";
+    otherMemberId: string;
 }
 
 const formSchema = z.object({
@@ -36,6 +37,7 @@ const ChatInput = ({
     query,
     name,
     type,
+    otherMemberId,
 }: ChatInputProps) => {
     const { onOpen } = useModal();
     const [open, setOpen] = useState(false);
@@ -81,9 +83,6 @@ const ChatInput = ({
             return; 
         }
         if (user?.publicMetadata.role === "Free") {
-            // onOpen("alertModal");
-            // return; 
-
             if (remainingTime > 0) {
                 return;
             }
@@ -107,7 +106,11 @@ const ChatInput = ({
             });
 
             await axios.post(url, values);
-            console.log(form.formState.isSubmitting); 
+            await axios.post('/api/push/notify', {
+                message: values.content,
+                recipientId: otherMemberId
+            });
+
             form.reset();
             router.refresh();
         } catch (error) {
@@ -129,6 +132,9 @@ const ChatInput = ({
             return () => clearInterval(timer);
         }
     }, [remainingTime]);
+
+
+   
 
     return (
         <Form {...form}>

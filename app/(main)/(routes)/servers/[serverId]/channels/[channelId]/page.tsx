@@ -76,13 +76,14 @@ const ChannelIdPage = async ({
                     />
                     <ChatInput
                         name={channel.name}
+                        otherMemberId=""
                         type="channel"
                         apiUrl="/api/socket/messages"
                         query={{
                             channelId: channel.id,
                             serverId: channel.serverId,
-                        }}
-                    />
+                        }} 
+                                            />
                 </>
             )}
             {channel.type === ChannelType.AUDIO && (

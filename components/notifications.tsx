@@ -3,6 +3,7 @@
 import { CONFIG } from "@/app/config"
 import { Button } from "./ui/button"
 import { BellRing } from "lucide-react"
+import { useUser } from "@clerk/nextjs"
 
 const notificationsSupported = () =>
     'Notification' in window &&
@@ -10,8 +11,15 @@ const notificationsSupported = () =>
     'PushManager' in window
 
 export default function Notifications() {
+    const {user} = useUser();
     return <>
-        <Button onClick={subscribe} className="bg-transparent border-0" variant="outline" size="icon">
+        <Button onClick={() => {
+            if (user && user.id) {
+                subscribe(user.id);
+            } else {
+                console.error("User or user ID is not defined.");
+            }
+        }} className="bg-transparent border-0" variant="outline" size="icon">
             <BellRing className="group-hover:text-white transition text-emerald-500" size={25} />
         </Button>
     </>
@@ -26,7 +34,7 @@ const registerServiceWorker = async () => {
     return navigator.serviceWorker.register('/service.js')
 }
 
-const subscribe = async () => {
+const subscribe = async (userId: string) => {
     await unregisterServiceWorkers()
 
     const swRegistration = await registerServiceWorker()
@@ -39,7 +47,7 @@ const subscribe = async () => {
         }
         const subscription = await swRegistration.pushManager.subscribe(options)
 
-        await saveSubscription(subscription)
+        await saveSubscription(subscription, userId)
 
         console.log({ subscription })
     } catch (err) {
@@ -47,16 +55,20 @@ const subscribe = async () => {
     }
 }
 
-const saveSubscription = async (subscription: PushSubscription) => {
+const saveSubscription = async (subscription: PushSubscription, userId: string) => {
     const ORIGIN = window.location.origin
-    const BACKEND_URL = `${ORIGIN}/api/push`
+    const BACKEND_URL = `${ORIGIN}/api/push/subscribe`
 
     const response = await fetch(BACKEND_URL, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify(subscription),
-    })
+        body: JSON.stringify({
+            subscription: subscription,
+            profileId: userId,
+        })
+    });
+    console.log(userId);
     return response.json()
 }
