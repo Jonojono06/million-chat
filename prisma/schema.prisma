@@ -125,10 +125,10 @@ model AvatarIcon {
 
 model Subscription {
   id             String    @id @default(uuid())
-  endpoint       String    @db.Text
+  endpoint       String    @unique @db.VarChar(3000)
   expirationTime DateTime?
-  p256dh         String
-  auth           String
+  p256dh         String    @db.Text
+  auth           String    @db.Text
   profileId      String
   profile        Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
