@@ -26,17 +26,34 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(_: NextRequest) {
-    const subscriptions = await getSubscriptionsFromDb()
+    const subscriptions = await getSubscriptionsFromDb();
 
-    subscriptions.forEach((s) => {
+    const results = [];
+
+    for (const s of subscriptions) {
         const payload = JSON.stringify({
             title: 'WebPush Notification!',
             body: 'Hello World',
-        })
-        webpush.sendNotification(s, payload)
-    })
+        });
+
+        try {
+            const result = await webpush.sendNotification(s, payload);
+            results.push({
+                subscription: s,
+                status: 'success',
+                result,
+            });
+        } catch (error) {
+            results.push({
+                subscription: s,
+                status: 'error',
+                error,
+            });
+        }
+    }
 
     return NextResponse.json({
-        message: `${subscriptions} messages sent!`,
-    })
+        message: `Messages sent!`,
+        results,
+    });
 }
