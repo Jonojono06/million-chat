@@ -1,5 +1,5 @@
 "use client"
-import React from 'react';
+import React, { useEffect } from 'react';
 import useDisablePinchZoom from '@/hooks/use-disable-zoom';
 
 interface ClientOnlyProps {
@@ -7,6 +7,17 @@ interface ClientOnlyProps {
 }
 
 const ClientOnly: React.FC<ClientOnlyProps> = ({ children }) => {
+    useEffect(() => {
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/sw.js').then(function (registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function (err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    }, []);
     useDisablePinchZoom();  
 
     const [isClient, setIsClient] = React.useState(false);

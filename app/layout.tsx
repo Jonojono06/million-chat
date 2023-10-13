@@ -10,7 +10,6 @@ import { ModalProvider } from '@/components/providers/modal-provider'
 import { SocketProvider } from '@/components/providers/socket-provider'
 import { QueryProvider } from '@/components/providers/query-provider'
 import ClientOnly from '@/components/client-only'
-// import ClientSideEffects from '@/components/client-side-effects'
 
 
 const font = Open_Sans({ subsets: ['latin'] })
