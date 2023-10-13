@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
        
         return NextResponse.json({ message: 'success' });
     } catch (error) {
-        console.error('Error saving subscription to database:', error);
+        console.error('Error saving subscription to database:', subscription);
         // return NextResponse.json({ message: 'error', detail: 'Failed to save subscription' }).status(500);
         return NextResponse.json('Failed to save subscription', { status: 500 });
     }
