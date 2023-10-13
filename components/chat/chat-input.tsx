@@ -148,6 +148,7 @@ const ChatInput = ({
                                 <div className="relative p-4 pb-6">
                                     <button
                                         type="button"
+                                        aria-label="Open File"
                                         onClick={() => {
                                             if (user?.publicMetadata.role === "Free" && type === "conversation") {
                                                 onOpen("alertModal");
@@ -179,6 +180,7 @@ const ChatInput = ({
                                         )}
                                         <button
                                             type="button"
+                                            aria-label="Send Message"
                                             onClick={() => form.handleSubmit(onSubmit)()}
                                             disabled={isLoading || remainingTime > 0}
                                             className="h-[30px] w-[30px] flex items-center justify-center"
