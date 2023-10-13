@@ -27,22 +27,22 @@
 //     .then(sub => console.log('Subscription saved:', sub))
 //     .catch(err => console.error('Error saving subscription:', err));
 
-import { PushSubscription } from 'web-push'
+// import { PushSubscription } from 'web-push'
 
-type DummyDb = {
-    subscriptions: PushSubscription[]
-}
+// type DummyDb = {
+//     subscriptions: PushSubscription[]
+// }
 
-export const dummyDb: DummyDb = { subscriptions: [] }
+// export const dummyDb: DummyDb = { subscriptions: [] }
 
-// fake Promise to simulate async call
-export const saveSubscriptionToDb = async (
-    subscription: PushSubscription
-): Promise<DummyDb> => {
-    dummyDb.subscriptions.push(subscription)
-    return Promise.resolve(dummyDb)
-}
+// // fake Promise to simulate async call
+// export const saveSubscriptionToDb = async (
+//     subscription: PushSubscription
+// ): Promise<DummyDb> => {
+//     dummyDb.subscriptions.push(subscription)
+//     return Promise.resolve(dummyDb)
+// }
 
-export const getSubscriptionsFromDb = () => {
-    return Promise.resolve(dummyDb.subscriptions)
-}
+// export const getSubscriptionsFromDb = () => {
+//     return Promise.resolve(dummyDb.subscriptions)
+// }

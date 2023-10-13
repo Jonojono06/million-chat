@@ -126,7 +126,7 @@ model AvatarIcon {
 model Subscription {
   id             String    @id @default(uuid())
   endpoint       String    @db.Text
-  expirationTime DateTime?
+  // expirationTime DateTime?
   p256dh         String    @db.Text
   auth           String    @db.Text
   profileId      String
