@@ -22,7 +22,6 @@ export async function POST(request: NextRequest) {
         await db.subscription.create({
             data: {
                 endpoint: subscription.endpoint,
-                // expirationTime: subscription.expirationTime,
                 p256dh: subscription.keys.p256dh,
                 auth: subscription.keys.auth,
                 profileId: profile.id,
