@@ -3,6 +3,7 @@
     "background_color": "#2E2B2B",
     "display": "standalone",
     "scope": "/",
+    "orientation": "portrait",
     "start_url": "/",
     "name": "million-chat",
     "short_name": "million",
