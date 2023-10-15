@@ -1,6 +1,7 @@
 const {createServer} = require ('http');
 const {parse} = require ('url');
 const next = require ('next');
+const {join} = require ('path');
 
 const dev = process.env.NODE_ENV !== 'production';
 const hostname = 'localhost';
@@ -17,13 +18,19 @@ app.prepare ().then (() => {
 
       res.setHeader ('Cache-Control', 'private, max-age=0, must-revalidate');
 
-      if (pathname === '/a') {
-        await app.render (req, res, '/a', query);
-      } else if (pathname === '/b') {
-        await app.render (req, res, '/b', query);
-      } else {
-        await handle (req, res, parsedUrl);
-      }
+      // if (pathname === '/a') {
+      //   await app.render (req, res, '/a', query);
+      // } else if (pathname === '/b') {
+      //   await app.render (req, res, '/b', query);
+      // } else {
+      //   await handle (req, res, parsedUrl);
+      // }
+       if (pathname === '/sw.js' || /^\/(workbox|worker|fallback)-\w+\.js$/.test(pathname)) {
+      const filePath = join(__dirname, '.next', pathname)
+      app.serveStatic(req, res, filePath)
+    } else {
+      handle(req, res, parsedUrl)
+    }
     } catch (err) {
       console.error ('Error occurred handling', req.url, err);
       res.statusCode = 500;
